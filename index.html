@@ -21,7 +21,6 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            /* Mencegah highlight biru saat klik di mobile */
             -webkit-tap-highlight-color: transparent;
         }
 
@@ -31,17 +30,15 @@
             color: var(--text-dark);
             display: flex;
             height: 100vh;
-            height: 100dvh; /* Support tinggi dinamis untuk mobile Safari/Chrome */
+            height: 100dvh;
         }
 
-        /* Layout Container */
         .container {
             display: flex;
             width: 100%;
             height: 100%;
         }
 
-        /* Panel Kiri: Input Form */
         .input-panel {
             width: 40%;
             background-color: #ffffff;
@@ -49,7 +46,6 @@
             overflow-y: auto;
             border-right: 2px solid var(--border-color);
             box-shadow: 2px 0 10px rgba(0,0,0,0.05);
-            /* Memperhalus scroll di iOS */
             -webkit-overflow-scrolling: touch;
         }
 
@@ -79,7 +75,6 @@
             font-family: 'Quicksand', sans-serif;
             outline: none;
             transition: 0.3s;
-            /* Reset style bawaan iOS */
             -webkit-appearance: none;
             appearance: none;
         }
@@ -140,18 +135,9 @@
             border-color: var(--primary-red);
         }
 
-        .item-row input.i-name {
-            flex: 1;
-        }
-
-        .item-row input.i-qty {
-            flex: 0 0 70px;
-            text-align: center;
-        }
-
-        .item-row input.i-price {
-            flex: 0 0 110px;
-        }
+        .item-row input.i-name { flex: 1; }
+        .item-row input.i-qty { flex: 0 0 70px; text-align: center; }
+        .item-row input.i-price { flex: 0 0 110px; }
 
         .btn-delete {
             background-color: #ffe6e6;
@@ -192,15 +178,37 @@
             background-color: #851c2e;
         }
 
-        .btn-print {
-            width: 100%;
-            font-size: 1.1rem;
-            padding: 1rem;
+        /* ── PRINT BUTTON GROUP ── */
+        .print-btn-group {
+            display: flex;
+            gap: 0.7rem;
             margin-top: 2rem;
-            background-color: #3a1c20;
         }
 
-        /* Panel Kanan: Preview Invoice */
+        .btn-print {
+            flex: 1;
+            font-size: 0.95rem;
+            padding: 0.9rem 0.5rem;
+            background-color: #3a1c20;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.2rem;
+            line-height: 1.2;
+            border-radius: 8px;
+        }
+
+        .btn-print span.print-label {
+            font-size: 0.75rem;
+            opacity: 0.75;
+            font-weight: 400;
+        }
+
+        .btn-print:hover {
+            background-color: var(--primary-red);
+        }
+
+        /* ── PREVIEW PANEL ── */
         .preview-panel {
             width: 60%;
             padding: 2rem;
@@ -233,26 +241,27 @@
 
         .inv-header {
             display: flex;
-            justify-content: space-between;
+            justify-content: space-between; /* Menjauhkan logo ke kiri dan teks ke kanan */
             align-items: center;
+            gap: 2.0rem;
             margin-bottom: 2rem;
             width: 100%;
             background-color: var(--soft-red);
-            padding: 1.5rem 2rem;
+            padding: 1.5rem 3rem; /* Memberikan padding yang nyaman */
             border-radius: 16px;
         }
 
         .header-right {
             display: flex;
             flex-direction: column;
-            align-items: center;
+            align-items: center; /* Membuat elemen di dalamnya rata kanan */
         }
 
         .inv-logo {
-            width: 220px;
-            height: 220px;
+            width: 200px; 
+            height: 200px;
             object-fit: contain;
-            margin-left: 40px;
+            margin-left: 55px;
             background-color: #ffffff;
             border-radius: 50%;
             box-shadow: 0 4px 8px rgba(164, 36, 59, 0.1);
@@ -266,7 +275,7 @@
         }
 
         .contact-info {
-            text-align: center;
+            text-align: center; /* Teks rata kanan */
             font-family: 'Quicksand', sans-serif;
             color: var(--text-dark);
             margin-bottom: 0.8rem;
@@ -274,13 +283,12 @@
             border-bottom: 1px dashed var(--accent-red);
             padding: 0.6rem 0;
             width: 100%;
-            max-width: 360px;
+            max-width: 400px;
         }
 
         .address-text {
             font-size: 0.8rem;
             line-height: 1.4;
-
             font-weight: 600;
             margin-bottom: 0.5rem;
             color: var(--primary-red);
@@ -288,7 +296,7 @@
 
         .contact-info .socials {
             display: flex;
-            justify-content: center;
+            justify-content: center; /* Rata tengah untuk ikon sosial */
             gap: 12px;
             align-items: center;
             font-size: 0.8rem;
@@ -296,10 +304,7 @@
             color: var(--primary-red);
         }
 
-        .socials span {
-            display: flex;
-            align-items: center;
-        }
+        .socials span { display: flex; align-items: center; }
 
         .contact-info svg {
             width: 13px;
@@ -308,10 +313,7 @@
             margin-right: 5px;
         }
 
-        .dot-sep {
-            color: var(--accent-red);
-            font-weight: bold;
-        }
+        .dot-sep { color: var(--accent-red); font-weight: bold; }
 
         .inv-header .subtitle {
             font-family: 'Great Vibes', cursive;
@@ -339,14 +341,8 @@
             font-size: 0.95rem;
         }
 
-        .inv-details p {
-            margin-bottom: 0.4rem;
-        }
-
-        .inv-details strong {
-            color: var(--primary-red);
-            font-family: 'Lora', serif;
-        }
+        .inv-details p { margin-bottom: 0.4rem; }
+        .inv-details strong { color: var(--primary-red); font-family: 'Lora', serif; }
 
         table {
             width: 100%;
@@ -364,17 +360,10 @@
             border-bottom: 2px solid var(--border-color);
         }
 
-        td {
-            padding: 12px 10px;
-            border-bottom: 1px dashed var(--border-color);
-        }
+        td { padding: 12px 10px; border-bottom: 1px dashed var(--border-color); }
 
-        th.right, td.right {
-            text-align: right;
-        }
-        th.center, td.center {
-            text-align: center;
-        }
+        th.right, td.right { text-align: right; }
+        th.center, td.center { text-align: center; }
 
         .totals {
             width: 50%;
@@ -440,10 +429,7 @@
             letter-spacing: 1px;
         }
 
-        .info-section ul {
-            list-style-type: none;
-            padding-left: 0;
-        }
+        .info-section ul { list-style-type: none; padding-left: 0; }
 
         .info-section ul li::before {
             content: "✿";
@@ -463,193 +449,257 @@
             border-top: 1px dashed var(--border-color);
         }
 
-        /* ========================================================
-            PRINT SETTINGS: FLEXIBLE AUTO-HEIGHT
-           ======================================================== */
+        /* ============================================================
+           PRINT MODE: STRUK (80mm) — default, body.print-struk
+           ============================================================ */
         @media print {
             * {
                 -webkit-print-color-adjust: exact !important;
                 print-color-adjust: exact !important;
             }
 
-            @page {
-                size: 80mm auto;
-                margin: 0;
-            }
-            
-            html, body {
+            .input-panel { display: none !important; }
+
+            /* ── STRUK MODE (default) ── */
+            body:not(.print-a4) html,
+            body:not(.print-a4) {
                 width: 80mm !important;
-                height: auto !important;
+                height: fit-content !important; /* Diubah ke fit-content */
+                min-height: 0 !important;       /* Memaksa agar tinggi tidak ikut layar */
                 display: block !important;
                 background-color: #ffffff !important;
                 margin: 0 !important;
                 padding: 0 !important;
-                overflow: visible !important;
+                overflow: hidden !important;    /* Memotong sisa putih */
             }
 
-            .input-panel {
-                display: none !important;
-            }
-
-            .container, .preview-panel {
+            body:not(.print-a4) .container,
+            body:not(.print-a4) .preview-panel {
                 display: block !important;
                 width: 80mm !important;
-                height: auto !important;
+                height: fit-content !important; /* Diubah ke fit-content */
+                min-height: 0 !important;       /* Memaksa agar tinggi tidak ikut layar */
                 padding: 0 !important;
                 margin: 0 !important;
                 background-color: #ffffff !important;
             }
 
-            .invoice-paper {
+            body:not(.print-a4) .invoice-paper {
                 width: 80mm !important;
                 max-width: 80mm !important;
                 margin: 0 !important;
                 padding: 15px !important;
                 border: none !important;
                 box-shadow: none !important;
-                /* KUNCI: Mencegah pemecahan halaman otomatis di iOS */
                 page-break-inside: avoid !important;
                 display: block !important;
+                border-top: none !important;
             }
 
-            .invoice-paper::before {
-                display: none !important;
-            }
+            body:not(.print-a4) .invoice-paper::before { display: none !important; }
 
-            .inv-header {
+            body:not(.print-a4) .inv-header {
                 display: flex !important;
                 flex-direction: column !important;
                 justify-content: center !important;
                 align-items: center !important;
-                margin-bottom: 20px !important;
+                gap: 0 !important;
+                margin-bottom: 14px !important;
                 background-color: var(--soft-red) !important;
-                padding: 15px !important;
-                border-radius: 12px !important;
+                padding: 12px !important;
+                border-radius: 10px !important;
                 text-align: center !important;
             }
 
-            .inv-logo {
-                width: 80px !important;
-                height: 80px !important;
-                margin: 0 auto 10px auto !important;
+            body:not(.print-a4) .inv-logo {
+                width: 70px !important;
+                height: 70px !important;
+                margin: 0 0 8px 0 !important;
                 background-color: #ffffff !important;
                 border-radius: 50% !important;
             }
 
-            .header-right {
+            body:not(.print-a4) .header-right {
                 display: flex !important;
                 flex-direction: column !important;
-                align-items: center !important;
+                align-items: center !important; /* Paksa tengah untuk struk */
                 width: 100% !important;
             }
 
-            .inv-name {
-                max-width: 160px !important;
-                margin-bottom: 8px !important;
+            body:not(.print-a4) .inv-name {
+                max-width: 150px !important;
+                margin-bottom: 6px !important;
             }
 
-            .contact-info {
+            body:not(.print-a4) .contact-info {
                 max-width: 100% !important;
-                border-top: 1px dashed var(--accent-red) !important;
-                border-bottom: 1px dashed var(--accent-red) !important;
-                padding: 8px 0 !important;
-                margin-bottom: 8px !important;
+                padding: 6px 0 !important;
+                margin-bottom: 6px !important;
+                text-align: center !important; /* Paksa tengah untuk struk */
             }
 
-            .address-text {
-                font-size: 11px !important;
-                color: var(--primary-red) !important;
-                margin-bottom: 5px !important;
-                line-height: 1.4 !important;
-                font-weight: 600 !important;
-            }
-
-            .socials {
-                display: flex !important;
-                justify-content: center !important;
-                gap: 8px !important;
+            body:not(.print-a4) .address-text {
                 font-size: 10px !important;
-                color: var(--primary-red) !important;
+                margin-bottom: 4px !important;
+                line-height: 1.3 !important;
+            }
+
+            body:not(.print-a4) .socials {
+                display: flex !important;
+                justify-content: center !important; /* Paksa tengah untuk struk */
+                gap: 6px !important;
+                font-size: 9.5px !important;
                 flex-wrap: wrap !important;
             }
 
-            .socials span { display: flex !important; align-items: center !important; }
-            .socials svg { width: 11px !important; height: 11px !important; margin-right: 4px !important; }
-            .dot-sep { display: inline-block !important; }
+            body:not(.print-a4) .socials span { display: flex !important; align-items: center !important; }
+            body:not(.print-a4) .socials svg { width: 10px !important; height: 10px !important; margin-right: 3px !important; }
 
-            .inv-header .subtitle {
-                font-family: 'Great Vibes', cursive !important;
-                font-size: 18px !important;
-                color: var(--accent-red) !important;
-                margin-top: 5px !important;
-            }
+            body:not(.print-a4) .inv-header .subtitle { font-size: 16px !important; margin-top: 4px !important; }
 
-            .inv-title {
-                text-align: center !important;
-                font-family: 'Lora', serif !important;
-                font-size: 16px !important;
+            body:not(.print-a4) .inv-title {
+                font-size: 13px !important;
                 letter-spacing: 3px !important;
-                color: var(--text-dark) !important;
-                margin-bottom: 15px !important;
-                font-weight: 600 !important;
-                border-bottom: 1px dashed var(--border-color) !important;
-                padding-bottom: 10px !important;
+                margin-bottom: 12px !important;
+                padding-bottom: 8px !important;
             }
 
-            .inv-details {
+            body:not(.print-a4) .inv-details {
                 display: flex !important;
                 flex-direction: column !important;
-                gap: 8px !important;
-                font-size: 11px !important;
-                margin-bottom: 20px !important;
+                gap: 3px !important;
+                font-size: 10px !important;
+                margin-bottom: 14px !important;
             }
-            .inv-details div { display: flex; flex-direction: column; gap: 4px; }
-            .inv-details strong { color: var(--primary-red) !important; font-family: 'Lora', serif !important; }
 
-            table { width: 100% !important; border-collapse: collapse !important; margin-bottom: 20px !important; font-size: 10px !important; }
-            th { background-color: var(--soft-red) !important; color: var(--primary-red) !important; font-family: 'Lora', serif !important; padding: 8px 4px !important; border-bottom: 2px solid var(--border-color) !important; font-size: 10px !important;}
-            td { padding: 6px 4px !important; border-bottom: 1px dashed var(--border-color) !important; }
-            td:first-child { word-wrap: break-word !important; white-space: normal !important; max-width: 120px !important; }
+            body:not(.print-a4) table { font-size: 9.5px !important; margin-bottom: 14px !important; }
+            body:not(.print-a4) th { padding: 6px 3px !important; font-size: 9.5px !important; }
+            body:not(.print-a4) td { padding: 5px 3px !important; }
+            body:not(.print-a4) td:first-child { word-wrap: break-word !important; white-space: normal !important; max-width: 110px !important; }
 
-            .totals { width: 100% !important; margin-bottom: 20px !important; }
-            .totals-row { display: flex !important; justify-content: space-between !important; padding: 4px 0 !important; font-size: 11px !important; }
-            .totals-row.grand-total { font-weight: bold !important; font-size: 14px !important; color: var(--primary-red) !important; border-top: 2px solid var(--border-color) !important; margin-top: 5px !important; padding-top: 10px !important; }
+            body:not(.print-a4) .totals { width: 100% !important; margin-bottom: 14px !important; }
+            body:not(.print-a4) .totals-row { padding: 3px 0 !important; font-size: 10px !important; }
+            body:not(.print-a4) .totals-row.grand-total { font-size: 13px !important; padding-top: 8px !important; }
 
-            .inv-note-container { background-color: var(--soft-red) !important; border-left: 4px solid var(--accent-red) !important; padding: 10px 12px !important; margin-bottom: 20px !important; border-radius: 0 8px 8px 0 !important; }
-            .inv-note-container h4 { font-family: 'Lora', serif !important; color: var(--primary-red) !important; font-size: 11px !important; margin-bottom: 4px !important; }
-            .inv-note-container p { font-family: 'Lora', serif !important; font-style: italic !important; color: var(--text-dark) !important; font-size: 11px !important; white-space: pre-wrap !important;}
+            body:not(.print-a4) .inv-note-container { padding: 8px 10px !important; margin-bottom: 14px !important; }
+            body:not(.print-a4) .inv-note-container h4 { font-size: 10px !important; margin-bottom: 3px !important; }
+            body:not(.print-a4) .inv-note-container p { font-size: 10px !important; }
 
-            .info-section { font-size: 9.5px !important; margin-bottom: 15px !important; line-height: 1.4 !important; }
-            .info-section h3 { font-family: 'Lora', serif !important; color: var(--primary-red) !important; font-size: 11px !important; margin-bottom: 6px !important; }
-            .info-section ul { list-style-type: none !important; padding-left: 0 !important; }
-            .info-section ul li::before { content: "✿"; color: var(--accent-red) !important; margin-right: 5px !important; font-size: 9px !important; }
+            body:not(.print-a4) .info-section { font-size: 9px !important; margin-bottom: 12px !important; line-height: 1.35 !important; }
+            body:not(.print-a4) .info-section h3 { font-size: 10px !important; margin-bottom: 5px !important; }
 
-            .thank-you {
+            body:not(.print-a4) .thank-you {
+                font-size: 1rem !important;
+                margin-top: 1rem !important;
+                padding-top: 1rem !important;
                 margin-bottom: 0 !important;
-                padding-bottom: 5px !important;
+                padding-bottom: 4px !important;
             }
-        }
-       
-        /* ========================================================
-           TAMBAHAN: MEDIA QUERY UNTUK SUPPORT IOS/ANDROID (MOBILE)
-           ======================================================== */
-        @media screen and (max-width: 900px) {
-            body {
-                height: auto;
-                display: block;
+
+            /* ── A4 MODE ── */
+            body.print-a4 {
+                width: 100% !important;
+                height: auto !important;
+                display: block !important;
+                background-color: #ffffff !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+
+            body.print-a4 .container,
+            body.print-a4 .preview-panel {
+                display: block !important;
+                width: 100% !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                background-color: #ffffff !important;
+            }
+
+            body.print-a4 .invoice-paper {
+                width: 100% !important;
+                max-width: 100% !important;
+                margin: 0 auto !important;
+                padding: 5mm 15mm !important; /* Dirapatkan agar muat 1 halaman */
+                box-shadow: none !important;
+                border: none !important;
+                border-top: 8px solid var(--primary-red) !important;
+            }
+
+            body.print-a4 .inv-header {
+                padding: 15px 30px !important;
+                margin-bottom: 15px !important;
+                /* gap tidak diperlukan karena justify-content: space-between sudah mengatur jarak */
             }
             
-            /* Memaksa font 16px di mobile agar iOS tidak auto-zoom saat input diklik */
-            .form-group input, 
-            .form-group textarea, 
+            body.print-a4 .inv-logo {
+                width: 180px !important; /* Logo besar di print A4 */
+                height: 180px !important;
+            }
+            
+            body.print-a4 .inv-name {
+                max-width: 200px !important;
+                margin-bottom: 5px !important;
+            }
+
+            body.print-a4 .inv-title {
+                margin-bottom: 15px !important;
+                padding-bottom: 5px !important;
+                font-size: 1rem !important;
+            }
+
+            body.print-a4 .inv-details {
+                margin-bottom: 15px !important;
+                font-size: 0.8rem !important;
+                gap: 0.5rem !important;
+            }
+            body.print-a4 .inv-details p { margin-bottom: 0.2rem !important; }
+
+            body.print-a4 table {
+                margin-bottom: 15px !important;
+                font-size: 0.8rem !important;
+            }
+            
+            body.print-a4 th, body.print-a4 td {
+                padding: 6px 8px !important;
+            }
+
+            body.print-a4 .totals {
+                margin-bottom: 15px !important;
+            }
+            body.print-a4 .totals-row {
+                padding: 4px 10px !important;
+            }
+
+            body.print-a4 .info-section {
+                margin-bottom: 12px !important;
+                font-size: 0.75rem !important;
+                line-height: 1.3 !important;
+            }
+
+            body.print-a4 .info-section h3 {
+                margin-bottom: 4px !important;
+                font-size: 0.85rem !important;
+            }
+
+            body.print-a4 .thank-you {
+                margin-top: 15px !important;
+                padding-top: 10px !important;
+                font-size: 1rem !important;
+            }
+        }
+
+        /* ── MOBILE RESPONSIVE ── */
+        @media screen and (max-width: 900px) {
+            body { height: auto; display: block; }
+
+            .form-group input,
+            .form-group textarea,
             .item-row input {
                 font-size: 16px !important;
             }
 
-            .container {
-                flex-direction: column;
-                height: auto;
-            }
+            .container { flex-direction: column; height: auto; }
+
             .input-panel {
                 width: 100%;
                 border-right: none;
@@ -657,56 +707,32 @@
                 overflow-y: visible;
                 padding: 1.5rem 1rem;
             }
-            .preview-panel {
-                width: 100%;
-                padding: 1rem;
-                overflow-y: visible;
-            }
-            .invoice-paper {
-                padding: 1.5rem;
-            }
-            .inv-header {
-                flex-direction: column;
-                padding: 1.5rem 1rem;
-            }
-            .inv-logo {
-                margin-left: 0;
-                margin-bottom: 1.5rem;
-                width: 150px;
-                height: 150px;
-            }
-            .inv-name {
-                max-width: 250px;
-            }
-            .inv-details {
-                grid-template-columns: 1fr;
-                gap: 0.5rem;
-            }
-            .totals {
-                width: 100%;
-            }
-            .item-row {
-                flex-wrap: wrap;
-                gap: 0.5rem;
-            }
-            .item-row input.i-name {
-                flex: 1 1 100%;
-                margin-bottom: 0.2rem;
-            }
-            .item-row input.i-qty, .item-row input.i-price {
-                flex: 1;
-            }
-            /* Tombol delete lebih besar di mobile agar mudah ditekan jari */
-            .btn-delete {
-                width: 44px;
-                height: 44px;
-            }
+
+            .preview-panel { width: 100%; padding: 1rem; overflow-y: visible; }
+            .invoice-paper { padding: 1.5rem; }
+
+            .inv-header { flex-direction: column; padding: 1.5rem 1rem; gap: 1.5rem; justify-content: center; }
+            .header-right { align-items: center; } /* Kembali ke tengah untuk layar kecil */
+            .inv-logo { width: 130px; height: 130px; }
+            .inv-name { max-width: 250px; }
+            .contact-info { text-align: center; }
+            .contact-info .socials { justify-content: center; }
+            .inv-details { grid-template-columns: 1fr; gap: 0.5rem; }
+            .totals { width: 100%; }
+
+            .item-row { flex-wrap: wrap; gap: 0.5rem; }
+            .item-row input.i-name { flex: 1 1 100%; margin-bottom: 0.2rem; }
+            .item-row input.i-qty, .item-row input.i-price { flex: 1; }
+            .btn-delete { width: 44px; height: 44px; }
+
             table {
                 display: block;
                 overflow-x: auto;
                 white-space: nowrap;
                 -webkit-overflow-scrolling: touch;
             }
+
+            .print-btn-group { flex-direction: column; }
         }
     </style>
 </head>
@@ -715,7 +741,7 @@
     <div class="container">
         <div class="input-panel">
             <h2>Invoice Data</h2>
-           
+
             <div class="form-group">
                 <label>Date</label>
                 <input type="date" id="in-date" oninput="updatePreview()">
@@ -763,18 +789,27 @@
                 <textarea id="in-note" oninput="updatePreview()" placeholder="Write a note... (e.g. Happy Birthday!)"></textarea>
             </div>
 
-            <button class="btn btn-print" onclick="printInvoice()">Print / Save PDF</button>
+            <div class="print-btn-group">
+                <button class="btn btn-print" onclick="printStruk()">
+                    🧾 Print Struk
+                    <span class="print-label">80mm · thermal</span>
+                </button>
+                <button class="btn btn-print" onclick="printA4()">
+                    📄 Print Invoice
+                    <span class="print-label">A4 · full page</span>
+                </button>
+            </div>
         </div>
 
         <div class="preview-panel">
             <div class="invoice-paper" id="invoice">
-               
+
                 <div class="inv-header">
                     <img src="img/logo.png" alt="Amora Bake House Logo" class="inv-logo">
-                   
+
                     <div class="header-right">
                         <img src="img/nama.png" alt="Amora Bake House Name" class="inv-name">
-                       
+
                         <div class="contact-info">
                             <p class="address-text">
                                 Emerald Land Cibinong Blok B26,<br>
@@ -926,7 +961,6 @@
                 const d = new Date(yyyy, mm - 1, dd);
                 const options = { year: 'numeric', month: 'long', day: 'numeric' };
                 displayDate = d.toLocaleDateString('en-US', options);
-
                 const yy = yyyy.slice(-2);
                 invDateStr = yy + mm + dd;
             }
@@ -939,7 +973,6 @@
 
             document.getElementById('out-inv').innerText = finalInvNo;
             document.getElementById('out-date').innerText = displayDate;
-
             document.getElementById('out-type').innerText = document.getElementById('in-type').value;
             document.getElementById('out-cust').innerText = document.getElementById('in-cust').value;
             document.getElementById('out-hp').innerText = document.getElementById('in-hp').value;
@@ -947,7 +980,7 @@
 
             const noteValue = document.getElementById('in-note').value;
             const noteContainer = document.getElementById('note-container');
-            if(noteValue.trim() !== "") {
+            if (noteValue.trim() !== "") {
                 document.getElementById('out-note').innerText = noteValue;
                 noteContainer.style.display = "block";
             } else {
@@ -957,7 +990,7 @@
             const names = document.querySelectorAll('.i-name');
             const qtys = document.querySelectorAll('.i-qty');
             const prices = document.querySelectorAll('.i-price');
-           
+
             let tbodyHtml = '';
             let subtotal = 0;
 
@@ -965,8 +998,8 @@
                 let name = names[i].value;
                 let qty = parseFloat(qtys[i].value) || 0;
                 let price = parseFloat(prices[i].value) || 0;
-               
-                if(name.trim() !== "") {
+
+                if (name.trim() !== "") {
                     let totalItem = qty * price;
                     subtotal += totalItem;
                     tbodyHtml += `
@@ -989,23 +1022,37 @@
             document.getElementById('out-total').innerText = formatRupiah(grandTotal);
         }
 
-        window.onload = function() {
-            const today = new Date();
-            const yyyy = today.getFullYear();
-            const mm = String(today.getMonth() + 1).padStart(2, '0');
-            const dd = String(today.getDate()).padStart(2, '0');
-           
-            document.getElementById('in-date').value = `${yyyy}-${mm}-${dd}`;
-            updatePreview();
-        };
-
-        function printInvoice() {
+        // ── PRINT STRUK (80mm thermal) ──
+        function printStruk() {
             saveCurrentCustomer();
+            document.body.classList.remove('print-a4');
 
             const invoiceElement = document.getElementById('invoice');
-            const heightPx = invoiceElement.scrollHeight;
-            // Tambahkan extra margin 5mm agar tidak mepet bawah saat dipotong sistem
-            const heightMm = (heightPx * 0.264583 + 5).toFixed(2);
+            
+            // Ambil tinggi bersih dari elemen tanpa sisa scroll layar
+            const heightPx = invoiceElement.offsetHeight; 
+            // Konversi px ke mm, bulatkan angkanya (tanpa penambahan sisa space)
+            const heightMm = Math.ceil(heightPx * 0.264583);
+
+            let dynamicStyle = document.getElementById('dynamic-print-style');
+            if (!dynamicStyle) {
+                dynamicStyle = document.createElement('style');
+                dynamicStyle.id = 'dynamic-print-style';
+                document.head.appendChild(dynamicStyle);
+            }
+            dynamicStyle.innerHTML = `
+                @media print {
+                    @page { size: 80mm ${heightMm}mm; margin: 0; }
+                }
+            `;
+
+            setTimeout(() => { window.print(); }, 300);
+        }
+
+        // ── PRINT A4 (full invoice) ──
+        function printA4() {
+            saveCurrentCustomer();
+            document.body.classList.add('print-a4');
 
             let dynamicStyle = document.getElementById('dynamic-print-style');
             if (!dynamicStyle) {
@@ -1014,27 +1061,27 @@
                 document.head.appendChild(dynamicStyle);
             }
             
-            // Memaksa ukuran kertas pas sesuai tinggi konten
+            /* Mengubah margin ke 0mm di @page agar browser tidak menambahkan header/footer default yang memakan ruang vertikal */
             dynamicStyle.innerHTML = `
                 @media print {
-                    @page { size: 80mm ${heightMm}mm; margin: 0; }
+                    @page { size: A4 portrait; margin: 0mm; }
                 }
             `;
 
             setTimeout(() => {
                 window.print();
+                // Reset class after print dialog closes
+                setTimeout(() => { document.body.classList.remove('print-a4'); }, 1000);
             }, 300);
         }
 
-        // Nama kunci untuk LocalStorage
+        // ── CUSTOMER STORAGE ──
         const STORAGE_KEY = 'amora_customers';
 
-        // 1. Fungsi untuk memuat daftar pelanggan saat halaman dibuka
         function loadCustomerData() {
             const list = document.getElementById('customer-list');
             const savedCustomers = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-            
-            list.innerHTML = ''; // Reset list
+            list.innerHTML = '';
             savedCustomers.forEach(cust => {
                 const option = document.createElement('option');
                 option.value = cust.name;
@@ -1042,61 +1089,41 @@
             });
         }
 
-        // 2. Fungsi untuk simpan pelanggan otomatis (Bisa dipanggil saat klik Print)
         function saveCurrentCustomer() {
             const name = document.getElementById('in-cust').value.trim();
             const hp = document.getElementById('in-hp').value.trim();
-
             if (name === "" || hp === "") return;
 
             let savedCustomers = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-
-            // Cek apakah pelanggan sudah ada
             const index = savedCustomers.findIndex(c => c.name.toLowerCase() === name.toLowerCase());
-
             if (index > -1) {
-                // Jika sudah ada, update nomor HP-nya (kalau berubah)
                 savedCustomers[index].hp = hp;
             } else {
-                // Jika belum ada, tambahkan ke daftar
                 savedCustomers.push({ name, hp });
             }
 
             localStorage.setItem(STORAGE_KEY, JSON.stringify(savedCustomers));
-            loadCustomerData(); // Refresh daftar dropdown
+            loadCustomerData();
         }
 
-        // 3. Fungsi Autofill nomor HP saat nama dipilih dari list
         function checkExistingCustomer() {
             const name = document.getElementById('in-cust').value.trim();
             const savedCustomers = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-            
             const match = savedCustomers.find(c => c.name.toLowerCase() === name.toLowerCase());
             if (match) {
                 document.getElementById('in-hp').value = match.hp;
-                updatePreview(); // Update tampilan preview invoice
+                updatePreview();
             }
         }
 
-        // 4. Update window.onload kamu agar memuat data saat start
         window.onload = function() {
-            // Kode tanggal yang sudah ada
             const today = new Date();
             const yyyy = today.getFullYear();
             const mm = String(today.getMonth() + 1).padStart(2, '0');
             const dd = String(today.getDate()).padStart(2, '0');
             document.getElementById('in-date').value = `${yyyy}-${mm}-${dd}`;
-            
-            // Tambahkan pemanggilan load data pelanggan
             loadCustomerData();
             updatePreview();
-        };
-
-        // 5. Update fungsi printInvoice kamu agar otomatis simpan data pelanggan setiap kali cetak
-        const originalPrintInvoice = printInvoice;
-        printInvoice = function() {
-            saveCurrentCustomer(); // Simpan dulu datanya
-            originalPrintInvoice(); // Jalankan fungsi print asli
         };
     </script>
 </body>
