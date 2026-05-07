@@ -473,6 +473,7 @@
             }
 
             @page {
+                size: 80mm auto;
                 margin: 0;
             }
             
@@ -503,12 +504,12 @@
                 width: 80mm !important;
                 max-width: 80mm !important;
                 margin: 0 !important;
-                padding: 12px !important;
-                border-top: 6px solid var(--primary-red) !important;
+                padding: 15px !important;
+                border: none !important;
                 box-shadow: none !important;
+                /* KUNCI: Mencegah pemecahan halaman otomatis di iOS */
                 page-break-inside: avoid !important;
-                position: relative !important;
-                background-color: #ffffff !important;
+                display: block !important;
             }
 
             .invoice-paper::before {
@@ -999,16 +1000,12 @@
         };
 
         function printInvoice() {
-            // Simpan data pelanggan ke LocalStorage dulu
             saveCurrentCustomer();
 
             const invoiceElement = document.getElementById('invoice');
-            
-            // Ambil tinggi total konten
             const heightPx = invoiceElement.scrollHeight;
-            
-            // Konversi ke mm (1px ≈ 0.264583mm) + sedikit toleransi (2mm)
-            const heightMm = (heightPx * 0.264583 + 2).toFixed(2);
+            // Tambahkan extra margin 5mm agar tidak mepet bawah saat dipotong sistem
+            const heightMm = (heightPx * 0.264583 + 5).toFixed(2);
 
             let dynamicStyle = document.getElementById('dynamic-print-style');
             if (!dynamicStyle) {
@@ -1017,20 +1014,16 @@
                 document.head.appendChild(dynamicStyle);
             }
             
-            // Set ukuran @page secara dinamis agar PDF hanya 1 halaman panjang
+            // Memaksa ukuran kertas pas sesuai tinggi konten
             dynamicStyle.innerHTML = `
                 @media print {
-                    @page { 
-                        size: 80mm ${heightMm}mm; 
-                        margin: 0; 
-                    }
+                    @page { size: 80mm ${heightMm}mm; margin: 0; }
                 }
             `;
 
             setTimeout(() => {
-                window.focus();
                 window.print();
-            }, 250);
+            }, 300);
         }
 
         // Nama kunci untuk LocalStorage
