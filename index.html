@@ -472,6 +472,10 @@
                 print-color-adjust: exact !important;
             }
 
+            @page {
+                margin: 0;
+            }
+            
             html, body {
                 width: 80mm !important;
                 height: auto !important;
@@ -502,6 +506,8 @@
                 padding: 12px !important;
                 border-top: 6px solid var(--primary-red) !important;
                 box-shadow: none !important;
+                page-break-inside: avoid !important;
+                position: relative !important;
                 background-color: #ffffff !important;
             }
 
@@ -993,9 +999,16 @@
         };
 
         function printInvoice() {
+            // Simpan data pelanggan ke LocalStorage dulu
+            saveCurrentCustomer();
+
             const invoiceElement = document.getElementById('invoice');
+            
+            // Ambil tinggi total konten
             const heightPx = invoiceElement.scrollHeight;
-            const heightMm = (heightPx * 0.264583 + 1).toFixed(2);
+            
+            // Konversi ke mm (1px ≈ 0.264583mm) + sedikit toleransi (2mm)
+            const heightMm = (heightPx * 0.264583 + 2).toFixed(2);
 
             let dynamicStyle = document.getElementById('dynamic-print-style');
             if (!dynamicStyle) {
@@ -1003,18 +1016,21 @@
                 dynamicStyle.id = 'dynamic-print-style';
                 document.head.appendChild(dynamicStyle);
             }
-           
+            
+            // Set ukuran @page secara dinamis agar PDF hanya 1 halaman panjang
             dynamicStyle.innerHTML = `
                 @media print {
-                    @page { size: 80mm ${heightMm}mm; margin: 0; }
-                    .invoice-paper { page-break-inside: avoid !important; break-inside: avoid !important; }
+                    @page { 
+                        size: 80mm ${heightMm}mm; 
+                        margin: 0; 
+                    }
                 }
             `;
 
             setTimeout(() => {
-                window.focus(); // Penting untuk mobile browser agar fokus ke dialog print
+                window.focus();
                 window.print();
-            }, 250); // Jeda sedikit lebih lama untuk stabilitas di mobile
+            }, 250);
         }
 
         // Nama kunci untuk LocalStorage
