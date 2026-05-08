@@ -807,6 +807,14 @@
                 <input type="number" id="in-ongkir" value="0" placeholder="0" oninput="updatePreview()">
             </div>
             <div class="form-group">
+                <label>Discount (%)</label>
+                <input type="number" id="in-discount" value="0" placeholder="0" oninput="updatePreview()">
+            </div>
+            <div class="form-group">
+                <label>Down Payment (DP) (Rp)</label>
+                <input type="number" id="in-dp" value="0" placeholder="0" oninput="updatePreview()">
+            </div>
+            <div class="form-group">
                 <label>Note / Special Request</label>
                 <textarea id="in-note" oninput="updatePreview()" placeholder="Write a note... (e.g. Happy Birthday!)"></textarea>
             </div>
@@ -889,6 +897,14 @@
                     <div class="totals-row">
                         <span>Shipping Fee</span>
                         <span id="out-ongkir">Rp0</span>
+                    </div>
+                    <div class="totals-row" id="row-discount" style="display: none;">
+                        <span>Discount (<span id="out-discount-percent">0</span>%)</span>
+                        <span id="out-discount-amount">-Rp0</span>
+                    </div>
+                    <div class="totals-row" id="row-dp" style="display: none;">
+                        <span>Down Payment (DP)</span>
+                        <span id="out-dp">-Rp0</span>
                     </div>
                     <div class="totals-row grand-total">
                         <span>GRAND TOTAL</span>
@@ -1036,11 +1052,42 @@
             }
 
             document.getElementById('out-items').innerHTML = tbodyHtml;
+            
             let ongkir = parseFloat(document.getElementById('in-ongkir').value) || 0;
-            let grandTotal = subtotal + ongkir;
+            let discountPercent = parseFloat(document.getElementById('in-discount').value) || 0;
+            let dp = parseFloat(document.getElementById('in-dp').value) || 0;
+
+            // Kalkulasi Total Semuanya (Subtotal + Ongkir) sebelum Diskon
+            let totalSemua = subtotal + ongkir;
+            
+            // Kalkulasi Diskon dalam Nominal
+            let discountAmount = totalSemua * (discountPercent / 100);
+            
+            // Kalkulasi Grand Total setelah Diskon dan dikurangi DP
+            let grandTotal = totalSemua - discountAmount - dp;
 
             document.getElementById('out-subtotal').innerText = formatRupiah(subtotal);
             document.getElementById('out-ongkir').innerText = formatRupiah(ongkir);
+            
+            // Toggle visibility untuk Diskon
+            const rowDiscount = document.getElementById('row-discount');
+            if (discountPercent > 0) {
+                rowDiscount.style.display = ''; // Kembalikan ke flex bawaan CSS
+                document.getElementById('out-discount-percent').innerText = discountPercent;
+                document.getElementById('out-discount-amount').innerText = "-" + formatRupiah(discountAmount);
+            } else {
+                rowDiscount.style.display = 'none';
+            }
+
+            // Toggle visibility untuk DP
+            const rowDp = document.getElementById('row-dp');
+            if (dp > 0) {
+                rowDp.style.display = ''; // Kembalikan ke flex bawaan CSS
+                document.getElementById('out-dp').innerText = "-" + formatRupiah(dp);
+            } else {
+                rowDp.style.display = 'none';
+            }
+
             document.getElementById('out-total').innerText = formatRupiah(grandTotal);
         }
 
