@@ -10,11 +10,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Lora:ital,wght@0,400;0,600;1,400;1,600&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-red: #a4243b;
-            --soft-red: #fff5f6;
-            --accent-red: #d88c9a;
-            --text-dark: #3a1c20;
-            --border-color: #f0d5d7;
+            --primary-red: #C01A22;  /* Merah Amora yang lebih terang, menyala, dan 'Pop' */
+            --soft-red: #FCF7F0;     /* Krem yang lebih cerah/bersih agar warna merahnya makin kontras */
+            --accent-red: #D1B894;   /* Coklat pita yang sedikit lebih tegas */
+            --text-dark: #8A151B;    /* Merah tua (bukan coklat gelap) agar teks tetap terbaca jelas tapi nuansa merahnya sangat kuat */
+            --border-color: #EADAC1; 
         }
 
         * {
@@ -26,7 +26,7 @@
 
         body {
             font-family: 'Quicksand', sans-serif;
-            background-color: #f7ecee;
+            background-color: #EBE5D9; /* Berubah jadi krem elegan */
             color: var(--text-dark);
             display: flex;
             height: 100vh;
@@ -120,8 +120,8 @@
         }
 
         .item-row input {
-            border: 1px solid #f0e6e7;
-            background-color: #faf6f7;
+            border: 1px solid var(--border-color); /* Otomatis pakai warna baru */
+            background-color: #FCFAF5; /* Krem sangat muda */
             padding: 0.6rem;
             border-radius: 6px;
             font-family: 'Quicksand', sans-serif;
@@ -135,7 +135,19 @@
             border-color: var(--primary-red);
         }
 
-        .item-row input.i-name { flex: 1; }
+        .item-row input.i-name { 
+            margin-bottom: 0 !important; 
+            flex: none;
+            width: 100%; 
+            box-sizing: border-box;
+            padding-right: 30px !important; 
+            /* Warna ikon panah diubah menjadi merah menyala yang baru */
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C01A22' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            background-size: 16px;
+        }
+        
         .item-row input.i-qty { flex: 0 0 70px; text-align: center; }
         .item-row input.i-price { flex: 0 0 110px; }
 
@@ -178,6 +190,58 @@
             background-color: #851c2e;
         }
 
+        /* Ubah bagian ini agar container barunya yang mengambil sisa ruang */
+        .autocomplete-container { flex: 1; position: relative; }
+        .item-row input.i-name { 
+            width: 100%; 
+            box-sizing: border-box;
+            padding-right: 30px !important; /* Memberi jarak agar teks tidak menabrak ikon */
+            /* Menambahkan ikon panah SVG di sebelah kanan */
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23a4243b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            background-size: 16px;
+        }
+        
+        .item-row input.i-qty { flex: 0 0 70px; text-align: center; }
+        .item-row input.i-price { flex: 0 0 110px; }
+
+        /* Style untuk list dropdown interaktif */
+        .autocomplete-list {
+            position: absolute;
+            z-index: 999;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            max-height: 200px;
+            overflow-y: auto;
+            box-shadow: 0 5px 15px rgba(164, 36, 59, 0.15);
+            display: none;
+            list-style: none;
+            padding: 0;
+            margin-top: 4px;
+        }
+
+        .autocomplete-list li {
+            padding: 10px 12px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            border-bottom: 1px solid #f9f0f1;
+            transition: 0.2s;
+            color: var(--text-dark);
+        }
+
+        .autocomplete-list li:hover {
+            background-color: var(--soft-red);
+            color: var(--primary-red);
+            font-weight: 600;
+        }
+        
+        .autocomplete-list li:last-child { border-bottom: none; }
+
         /* ── PRINT BUTTON GROUP ── */
         .print-btn-group {
             display: flex;
@@ -216,7 +280,7 @@
             justify-content: center;
             align-items: flex-start;
             overflow-y: auto;
-            background-color: #f7ecee;
+            background-color: #EBE5D9; /* Disamakan dengan body */
         }
 
         .invoice-paper {
@@ -743,7 +807,9 @@
             .totals { width: 100%; }
 
             .item-row { flex-wrap: wrap; gap: 0.5rem; }
-            .item-row input.i-name { flex: 1 1 100%; margin-bottom: 0.2rem; }
+            /* Update agar container dropdown mengambil lebar penuh di layar HP */
+            .autocomplete-container { flex: 1 1 100%; margin-bottom: 0.2rem; }
+            .item-row input.i-name { margin-bottom: 0 !important; flex: none; }
             .item-row input.i-qty, .item-row input.i-price { flex: 1; }
             .btn-delete { width: 44px; height: 44px; }
 
@@ -755,6 +821,12 @@
             }
 
             .print-btn-group { flex-direction: column; }
+        }
+
+        /* Memastikan baris yang sedang aktif / diklik selalu berada di atas baris lainnya */
+        .item-row:focus-within {
+            position: relative;
+            z-index: 10;
         }
     </style>
 </head>
@@ -791,14 +863,12 @@
             </div>
 
             <h2 style="font-size: 1.2rem; margin-top: 1.5rem;">Order Details</h2>
+            <!-- Datalist untuk menampung data menu -->
+            <datalist id="pricelist-items"></datalist>
+
             <div id="items-wrapper" class="items-container">
-                <div class="item-row">
-                    <input type="text" class="i-name" placeholder="Item Name" oninput="updatePreview()">
-                    <input type="number" class="i-qty" value="" placeholder="Qty" oninput="updatePreview()">
-                    <input type="number" class="i-price" value="" placeholder="Price" oninput="updatePreview()">
-                    <button class="btn-delete" onclick="removeItem(this)">×</button>
-                </div>
             </div>
+
             <button class="btn" onclick="addItem()">+ Add Item</button>
 
             <h2 style="font-size: 1.2rem; margin-top: 1.5rem;">Fees & Special Notes</h2>
@@ -978,13 +1048,137 @@
             const wrapper = document.getElementById('items-wrapper');
             const row = document.createElement('div');
             row.className = 'item-row';
+            
+            // Perhatikan bagian onclick di baris input bawah ini, kita tambahkan showSuggestions(this, true)
             row.innerHTML = `
-                <input type="text" class="i-name" placeholder="Item Name" oninput="updatePreview()">
+                <div class="autocomplete-container">
+                    <input type="text" class="i-name" placeholder="Search / Type Item Name" 
+                        oninput="handleInput(this)" 
+                        onfocus="showSuggestions(this, true)" 
+                        onblur="hideSuggestions(this)" 
+                        autocomplete="off" 
+                        onclick="this.select(); showSuggestions(this, true)">
+                    <ul class="autocomplete-list"></ul>
+                </div>
                 <input type="number" class="i-qty" value="1" placeholder="Qty" oninput="updatePreview()">
                 <input type="number" class="i-price" value="0" placeholder="Price" oninput="updatePreview()">
                 <button class="btn-delete" onclick="removeItem(this)">×</button>
             `;
             wrapper.appendChild(row);
+            updatePreview();
+        }
+
+        // --- LOGIKA CUSTOM DROPDOWN ---
+        function handleInput(inputElement) {
+            checkItemPrice(inputElement); 
+            // false = filter berdasarkan apa yang diketik
+            showSuggestions(inputElement, false); 
+        }
+
+        function showSuggestions(inputElement, showAll = false) {
+            const container = inputElement.parentElement;
+            const list = container.querySelector('.autocomplete-list');
+            
+            // Jika showAll true (saat baru diklik), anggap filter kosong agar semua menu muncul
+            const val = showAll ? "" : inputElement.value.toLowerCase();
+            
+            list.innerHTML = ''; 
+            let hasMatch = false;
+
+            for (const item in amoraPriceList) {
+                if (item.toLowerCase().includes(val)) {
+                    const li = document.createElement('li');
+                    li.textContent = item;
+                    li.onmousedown = function(e) { 
+                        e.preventDefault();
+                        inputElement.value = item;
+                        list.style.display = 'none';
+                        checkItemPrice(inputElement);
+                    };
+                    list.appendChild(li);
+                    hasMatch = true;
+                }
+            }
+            
+            if (hasMatch) {
+                list.style.display = 'block';
+            } else {
+                list.style.display = 'none';
+            }
+        }
+
+        function hideSuggestions(inputElement) {
+            const list = inputElement.parentElement.querySelector('.autocomplete-list');
+            setTimeout(() => { list.style.display = 'none'; }, 150);
+        }
+
+        // Database Pricelist Amora 2026
+        const amoraPriceList = {
+            "Birthday Cake (Diameter 16 cm)": 450000,
+            "Birthday Cake (Diameter 18 cm)": 550000,
+            "Birthday Cake (Diameter 20 cm)": 650000,
+            "Birthday Cake (Diameter 22 cm)": 850000,
+            "Birthday Cake (Diameter 24 cm)": 950000,
+            "Birthday Cake (Diameter 26 cm)": 1250000,
+            "Birthday Cake (Diameter 28 cm)": 1400000,
+            "Birthday Cake (Diameter 30 cm)": 1600000,
+            "Bento Cake (Diameter 10 cm)": 80000,
+            "Cupcake (Diameter 7 cm)": 30000,
+            "Bento Set 5 (1 bento, 5 cupcakes)": 200000,
+            "Bento Set 2 (1 bento, 2 cupcakes)": 150000,
+            "SK Pillow Cake (Half)": 60000,
+            "SK Pillow Cake (Full)": 100000,
+            "Marmer Cake (Half)": 80000,
+            "Marmer Cake (Full)": 150000,
+            "Flower Bouquet Cupcake (10 cupcakes)": 550000,
+            "Salt Bread - Original": 13000,
+            "Salt Bread - Garlic": 16000,
+            "Salt Bread - Chocolate": 16000,
+            "Salt Bread - Mushroom saute & cheese": 21000,
+            "Roti Bluder - Cheese": 10000,
+            "Roti Bluder - Chocolate": 10000,
+            "Roti Bluder - Cheese Milky": 11000,
+            "Roti Bluder - Banana Cheese": 12000,
+            "Roti Bluder - Banana Choco": 12000,
+            "Roti Sisir - Butter": 13000,
+            "Roti Sisir - Chocomelt": 13000,
+            "Roti Sisir - Choco Meses": 13000,
+            "Roti Sisir - Choco Cheese": 15000,
+            "Roti Sisir - Cheese Butter": 15000,
+            "Roti Sisir - Butter Meses": 15000,
+            "Roti Sisir - Srikaya": 17000,
+            "Roti Sisir - Smoke Beef Cheese": 19000,
+            "Soft Dough - Chocolate Ganache": 12000,
+            "Soft Dough - Banana Choco": 15000,
+            "Soft Dough - Kismis Chia Cream cheese": 18000,
+            "Soft Dough - Mushroom saute & Cheese": 20000,
+            "New York Cheese Cake - Strawberry jam": 250000,
+            "New York Cheese Cake - Blueberry jam": 265000,
+            "New York Cheese Cake - Mix Blueberry & Strawberry": 270000,
+            "Cheese Cake Mochi (Full) - Original": 235000,
+            "Cheese Cake Mochi (Full) - Chocolate": 250000,
+            "Cheese Cake Mochi (Slice) - Original": 32000,
+            "Cheese Cake Mochi (Slice) - Chocolate": 35000,
+            "Cinnamon Roll - Original": 23000,
+            "Cinnamon Roll - Matcha": 25000,
+            "Lapis Legit (Whole 22x22)": 450000,
+            "Lapis Legit - Mini Bites": 15000,
+            "Lapis Surabaya (Whole 22x22)": 500000,
+            "Lapis Surabaya (Half 22x11)": 300000,
+        };
+
+        // Fungsi mengecek dan mengisi harga otomatis
+        function checkItemPrice(inputElement) {
+            const selectedItem = inputElement.value;
+            
+            // Jika item yang dipilih ada di database, otomatis ubah harganya
+            if (amoraPriceList[selectedItem] !== undefined) {
+                const row = inputElement.closest('.item-row');
+                const priceInput = row.querySelector('.i-price');
+                priceInput.value = amoraPriceList[selectedItem];
+            }
+            
+            // Panggil updatePreview agar totalnya langsung terhitung
             updatePreview();
         }
 
@@ -1204,6 +1398,12 @@
             const dd = String(today.getDate()).padStart(2, '0');
             document.getElementById('in-date').value = `${yyyy}-${mm}-${dd}`;
             loadCustomerData();
+            
+            // Memunculkan 3 baris item kosong secara default
+            addItem();
+            addItem();
+            addItem();
+            
             updatePreview();
         };
     </script>
