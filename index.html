@@ -811,6 +811,10 @@
                 <input type="number" id="in-discount" value="0" placeholder="0" oninput="updatePreview()">
             </div>
             <div class="form-group">
+                <label>Discount Nominal (Rp)</label>
+                <input type="number" id="in-discount-nominal" value="0" placeholder="0" oninput="updatePreview()">
+            </div>
+            <div class="form-group">
                 <label>Down Payment (DP) (Rp)</label>
                 <input type="number" id="in-dp" value="0" placeholder="0" oninput="updatePreview()">
             </div>
@@ -899,7 +903,7 @@
                         <span id="out-ongkir">Rp0</span>
                     </div>
                     <div class="totals-row" id="row-discount" style="display: none;">
-                        <span>Discount (<span id="out-discount-percent">0</span>%)</span>
+                        <span id="out-discount-label">Discount</span>
                         <span id="out-discount-amount">-Rp0</span>
                     </div>
                     <div class="totals-row" id="row-dp" style="display: none;">
@@ -1055,14 +1059,15 @@
             
             let ongkir = parseFloat(document.getElementById('in-ongkir').value) || 0;
             let discountPercent = parseFloat(document.getElementById('in-discount').value) || 0;
+            let discountNominal = parseFloat(document.getElementById('in-discount-nominal').value) || 0;
             let dp = parseFloat(document.getElementById('in-dp').value) || 0;
 
             // Kalkulasi Total Semuanya (Subtotal + Ongkir) sebelum Diskon
             let totalSemua = subtotal + ongkir;
-            
-            // Kalkulasi Diskon dalam Nominal
-            let discountAmount = totalSemua * (discountPercent / 100);
-            
+
+            // Kalkulasi Diskon: Total Diskon Persen + Total Diskon Nominal
+            let discountAmount = (totalSemua * (discountPercent / 100)) + discountNominal;
+
             // Kalkulasi Grand Total setelah Diskon dan dikurangi DP
             let grandTotal = totalSemua - discountAmount - dp;
 
@@ -1071,9 +1076,16 @@
             
             // Toggle visibility untuk Diskon
             const rowDiscount = document.getElementById('row-discount');
-            if (discountPercent > 0) {
+            if (discountAmount > 0) {
                 rowDiscount.style.display = ''; // Kembalikan ke flex bawaan CSS
-                document.getElementById('out-discount-percent').innerText = discountPercent;
+                
+                // Buat label dinamis (tampilkan angkanya jika pakai persen)
+                let labelDiskon = "Discount";
+                if (discountPercent > 0) {
+                    labelDiskon += ` (${discountPercent}%)`;
+                }
+                document.getElementById('out-discount-label').innerText = labelDiskon;
+                
                 document.getElementById('out-discount-amount').innerText = "-" + formatRupiah(discountAmount);
             } else {
                 rowDiscount.style.display = 'none';
